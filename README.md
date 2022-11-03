@@ -38,8 +38,8 @@ Write the following endpoints. The first one belongs inside `api/users/users-rou
 
 - [x] `[GET] /api/users`
 - [x] `[POST] /api/auth/register`
-- [ ] `[POST] /api/auth/login`
-- [ ] `[GET] /api/auth/logout`
+- [x] `[POST] /api/auth/login`
+- [x] `[GET] /api/auth/logout`
 
 #### Users Schema
 

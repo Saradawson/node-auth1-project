@@ -8,7 +8,11 @@ const User = require('../users/users-model');
   }
 */
 async function restricted(req, res, next) {
-    next()
+    if(req.session.user){
+      next();
+    }else{
+      next({ status: 401, message: 'You shall not pass!'})
+    }
 }
 
 /*
@@ -57,7 +61,7 @@ async function checkUsernameExists(req, res, next) {
 */
 function checkPasswordLength(req, res, next) {
   const { password } = req.body
-  if(!password.length || password.length <= 3){
+  if(!password || password.length <= 3){
     next({ status: 422, message: 'Password must be longer than 3 chars' })
   }else{
     next();
