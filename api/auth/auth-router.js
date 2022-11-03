@@ -55,8 +55,19 @@ const router = express.Router();
     "message": "Invalid credentials"
   }
  */
-  router.post('/login', checkUsernameExists, (req, res, next) => {
-    res.json('login')
+  router.post('/login', checkUsernameExists, async (req, res, next) => {
+    try{
+      const { username, password } = req.body;
+      const [user] = await User.findBy({ username });
+      if(bcrypt.compareSync(password, user.password)){
+        req.session.user = user;
+        res.json({ message: `Welcome ${username}!`})
+      }else{
+        next({ status: 401, message: 'Invalid credentials'})
+      }
+    }catch(err){
+      next(err);
+    }
   })
 
 

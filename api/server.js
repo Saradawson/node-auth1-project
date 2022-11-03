@@ -19,12 +19,6 @@ const authRouter = require('./auth/auth-router');
  */
 
 const server = express();
-
-server.use(helmet());
-server.use(express.json());
-server.use(cors());
-server.use('/api/users', usersRouter);
-server.use('/api/auth', authRouter);
 server.use(session({
   name: 'chocolatechip',
   secret: 'keep it secret',
@@ -44,6 +38,12 @@ server.use(session({
     clearInterval: 1000 * 60 * 60
   })
 }))
+server.use(helmet());
+server.use(express.json());
+server.use(cors());
+server.use('/api/users', usersRouter);
+server.use('/api/auth', authRouter);
+
 
 server.get("/", (req, res) => {
   res.json({ api: "up" });
